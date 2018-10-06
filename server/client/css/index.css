@@ -1,0 +1,85 @@
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #efefef;
+  background-color: black;
+}
+
+body, input {
+  font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, "Segoe UI", Arial, sans-serif;
+}
+
+html:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  opacity: 0;
+  filter: grayscale(var(--grayscale, 25%));
+  transition: all .6s ease-in;
+}
+
+html[opacity="1"]::before {
+  opacity: 1;
+}
+
+html *, *:before, *:after {
+  box-sizing: inherit;
+}
+
+main {
+  display: block;
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 32px;
+  text-align: center;
+  margin: 32px;
+}
+
+main input, main output {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  padding: 8px;
+  color: #fff;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.2rem;
+}
+
+main input {
+  outline: none;
+  opacity: 0.8;
+}
+
+main output {
+  font-weight: bold;
+  transition: opacity .6s ease-in;
+}
+
+label {
+  position: absolute;
+  top: -200px;
+}
+
+@media (max-width: 310px) {
+  main {
+    padding: 8px;
+    margin: 8px;
+  }
+}

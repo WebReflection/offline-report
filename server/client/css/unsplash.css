@@ -1,0 +1,48 @@
+a.unsplash, a.unsplash:visited {
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  padding: 4px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.2;
+  display: inline-block;
+  border-radius: 3px;
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+}
+
+a.unsplash > span {
+  display: inline-block;
+  padding: 2px 3px;
+}
+
+a.unsplash > span > svg {
+  height: 12px;
+  width: auto;
+  position: relative;
+  vertical-align: middle;
+  top: -1px;
+  fill: white;
+}
+
+html.gaspanik:before {
+  background-image: url(../img/gaspanik.jpg);
+}
+
+html.a2foto:before {
+  background-image: url(../img/a2foto.jpg);
+}
+
+html.davidmoum:before {
+  background-image: url(../img/davidmoum.jpg);
+}
+
+html.edgr:before {
+  background-image: url(../img/edgr.jpg);
+}
+
+html.michaelbenz:before {
+  background-image: url(../img/michaelbenz.jpg);
+}

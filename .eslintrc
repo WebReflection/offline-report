@@ -1,0 +1,23 @@
+{
+  "extends": "eslint:recommended",
+  "globals": {
+    "Map": true,
+    "Promise": true,
+    "Set": true,
+    "WeakMap": true
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "rules": {
+    "no-case-declarations": 0,
+    "no-empty": false,
+    "no-fallthrough": 0,
+    "no-control-regex": 0,
+    "no-console": 0
+  }
+}

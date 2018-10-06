@@ -1,0 +1,34 @@
+{
+  "name": "offline-report",
+  "version": "0.2.5",
+  "description": "Your availability through your command line.",
+  "bin": "offline-report.js",
+  "dependencies": {
+    "faroff": "0.0.4",
+    "monthly": "^0.6.6",
+    "ora": "^3.0.0",
+    "perseverant": "^1.0.0",
+    "read": "^1.0.7",
+    "uuid": "^3.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WebReflection/offline-report.git"
+  },
+  "scripts": {
+    "copy:shared": "cp ../shared/*.js ./shared"
+  },
+  "keywords": [
+    "vacations",
+    "offline",
+    "availability",
+    "online",
+    "holidays"
+  ],
+  "author": "Andrea Giammarchi",
+  "license": "AGPLv3",
+  "bugs": {
+    "url": "https://github.com/WebReflection/offline-report/issues"
+  },
+  "homepage": "https://github.com/WebReflection/offline-report#readme"
+}

@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build": "cd cli; npm run copy:shared; cd ../server; npm run copy:shared",
+    "test": "istanbul cover test/ranges.js"
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.5"
+  }
+}

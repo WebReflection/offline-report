@@ -1,0 +1,1 @@
+module.exports = (render, info) => render`${info.status}`;
