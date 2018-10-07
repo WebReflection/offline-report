@@ -1,11 +1,15 @@
 const {hyper} = require('hypermorphic');
-const {SEARCH_PLACEHOLDER} = require('../../shared/constants.js');
+const {
+  CONNECTION_ERROR,
+  SEARCH_PLACEHOLDER
+} = require('../../shared/constants.js');
+const {$} = require('./utils.js');
+const statusHTML = require('../../shared/status.js');
 const view = {input: require('../../view/input.js')};
+
 const wire = {input: hyper.wire()};
 const render = (what, how) => view[what](wire[what], how);
-const statusHTML = require('../../shared/status.js');
 
-const $ = css => document.querySelector(css);
 const createUser = status => {
   switch(status) {
     case 'online':
@@ -98,7 +102,7 @@ module.exports = () => {
               else {
                 update({
                   gray: '75%',
-                  status: 'connection error',
+                  status: CONNECTION_ERROR,
                   opacity: 1
                 });
               }

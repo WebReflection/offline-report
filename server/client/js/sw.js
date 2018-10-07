@@ -1,36 +1,27 @@
 const SITE = location.protocol + '//' + location.host;
 
-const urlsToCache = [
-  '/',
-  '/sw.js',
-  '/favicon.ico',
-  '/css/min.css',
-  '/css/unsplash.css',
-  '/js/min.js'
-];
+const openedCache = caches.open(CACHE_NAME);
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+addEventListener('install', e => {
+  e.waitUntil(
+    openedCache.then(cache => cache.addAll([
+      '/',
+      '/css/min.css',
+      '/css/unsplash.css',
+      '/js/min.js',
+      decodeURIComponent(location.search.slice(1))
+    ]))
   );
 });
 
 self.addEventListener('fetch', event => {
   const {request} = event;
-  const {url} = request;
-  if (
-    url.indexOf(SITE) !== 0 ||
-    /\.(?:jpg|jpeg|png|gif)$/.test(url)
-  ) {
-    event.respondWith(
-      caches
-        .open(CACHE_NAME)
-        .then(cache => cache.match(request).then(response => {
-          if (response)
-            return response;
-          return fetch(request.clone()).then(
+  event.respondWith(
+    /\.txt$/.test(request.url) ?
+      fetch(request) :
+      openedCache.then(
+        cache => cache.match(request).then(
+          response => response || fetch(request.clone()).then(
             response => {
               if (199 < response.status && response.status < 400)
                 cache.put(request, response.clone());
@@ -40,12 +31,10 @@ self.addEventListener('fetch', event => {
             },
             error => {
               if (navigator.onLine)
-                console.error(url, error);
+              console.error(url, error);
             }
-          );
-        }))
-    );
-  }
-  else
-    event.respondWith(fetch(request));
+          )
+        )
+      )
+  );
 });

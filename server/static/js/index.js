@@ -43,25 +43,45 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   return main.__esModule ? main.default : main;
 })([], [function (global, require, module, exports) {
   // index.js
-  var DOMContentLoaded = require(1);
+  require(1);
 
-  var load = require(22);
+  var DOMContentLoaded = require(2);
+
+  var load = require(24);
+
+  var online = require(25);
 
   var options = {
     once: true
   };
   document.addEventListener('DOMContentLoaded', DOMContentLoaded, options);
   addEventListener('load', load, options);
+  addEventListener('online', online, false);
+}, function (global, require, module, exports) {
+  // serviceWorker.js
+  if ('serviceWorker' in navigator) {
+    addEventListener('beforeinstallprompt', function (event) {
+      event.preventDefault();
+      window.installPrompt = event;
+    });
+    navigator.serviceWorker.register('/sw.js?' + encodeURIComponent(location.pathname + location.search));
+  }
 }, function (global, require, module, exports) {
   // domcontentloaded.js
-  var _require = require(2),
+  var _require = require(3),
       hyper = _require.hyper;
 
-  var _require2 = require(19),
+  var _require2 = require(20),
+      CONNECTION_ERROR = _require2.CONNECTION_ERROR,
       SEARCH_PLACEHOLDER = _require2.SEARCH_PLACEHOLDER;
 
+  var _require3 = require(21),
+      $ = _require3.$;
+
+  var statusHTML = require(22);
+
   var view = {
-    input: require(20)
+    input: require(23)
   };
   var wire = {
     input: hyper.wire()
@@ -69,12 +89,6 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
   var render = function render(what, how) {
     return view[what](wire[what], how);
-  };
-
-  var statusHTML = require(21);
-
-  var $ = function $(css) {
-    return document.querySelector(css);
   };
 
   var createUser = function createUser(status) {
@@ -179,7 +193,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
                 } else {
                   update({
                     gray: '75%',
-                    status: 'connection error',
+                    status: CONNECTION_ERROR,
                     opacity: 1
                   });
                 }
@@ -238,7 +252,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
    * Readapted as module by Andrea Giammarchi
    * to be installed and consumed as regular module
    */
-  module.exports = (typeof document === "undefined" ? "undefined" : _typeof(document)) === 'object' ? require(3) : null;
+  module.exports = (typeof document === "undefined" ? "undefined" : _typeof(document)) === 'object' ? require(4) : null;
 }, function (global, require, module, exports) {
   // ../../node_modules/hyperhtml/cjs/index.js
   'use strict';
@@ -246,30 +260,30 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
   var Component = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(4));
+  }(require(5));
 
-  var _require3 = require(4),
-      setup = _require3.setup;
+  var _require4 = require(5),
+      setup = _require4.setup;
 
   var Intent = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(7));
+  }(require(8));
 
   var wire = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(8));
+  }(require(9));
 
-  var _require4 = require(8),
-      content = _require4.content,
-      weakly = _require4.weakly;
+  var _require5 = require(9),
+      content = _require5.content,
+      weakly = _require5.weakly;
 
   var render = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(14));
+  }(require(15));
 
   var diff = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(18)); // all functions are self bound to the right context
+  }(require(19)); // all functions are self bound to the right context
   // you can do the following
   // const {bind, wire} = hyperHTML;
   // and use them right away: bind(node)`hello!`;
@@ -311,9 +325,9 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   // ../../node_modules/hyperhtml/cjs/classes/Component.js
   'use strict';
 
-  var _require5 = require(5),
-      Map = _require5.Map,
-      WeakMap = _require5.WeakMap; // hyperHTML.Component is a very basic class
+  var _require6 = require(6),
+      Map = _require6.Map,
+      WeakMap = _require6.WeakMap; // hyperHTML.Component is a very basic class
   // able to create Custom Elements like components
   // including the ability to listen to connect/disconnect
   // events via onconnect/ondisconnect attributes
@@ -480,9 +494,9 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   // ../../node_modules/hyperhtml/cjs/shared/poorlyfills.js
   'use strict';
 
-  var _require6 = require(6),
-      G = _require6.G,
-      UID = _require6.UID; // you know that kind of basics you need to cover
+  var _require7 = require(7),
+      G = _require7.G,
+      UID = _require7.UID; // you know that kind of basics you need to cover
   // your use case only but you don't want to bloat the library?
   // There's even a package in here:
   // https://www.npmjs.com/package/poorlyfills
@@ -653,29 +667,29 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   // ../../node_modules/hyperhtml/cjs/hyper/wire.js
   'use strict';
 
-  var _require7 = require(6),
-      ELEMENT_NODE = _require7.ELEMENT_NODE,
-      SVG_NAMESPACE = _require7.SVG_NAMESPACE;
+  var _require8 = require(7),
+      ELEMENT_NODE = _require8.ELEMENT_NODE,
+      SVG_NAMESPACE = _require8.SVG_NAMESPACE;
 
-  var _require8 = require(5),
-      WeakMap = _require8.WeakMap,
-      trim = _require8.trim;
-
-  var _require9 = require(9),
-      fragment = _require9.fragment;
+  var _require9 = require(6),
+      WeakMap = _require9.WeakMap,
+      trim = _require9.trim;
 
   var _require10 = require(10),
-      append = _require10.append,
-      slice = _require10.slice,
-      unique = _require10.unique;
+      fragment = _require10.fragment;
+
+  var _require11 = require(11),
+      append = _require11.append,
+      slice = _require11.slice,
+      unique = _require11.unique;
 
   var Wire = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(13));
+  }(require(14));
 
   var render = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(14)); // all wires used per each context
+  }(require(15)); // all wires used per each context
 
 
   var wires = new WeakMap(); // A wire is a callback used as tag function
@@ -804,32 +818,32 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   // ../../node_modules/hyperhtml/cjs/shared/utils.js
   'use strict';
 
-  var _require11 = require(11),
-      attrName = _require11.attrName,
-      attrSeeker = _require11.attrSeeker;
+  var _require12 = require(12),
+      attrName = _require12.attrName,
+      attrSeeker = _require12.attrSeeker;
 
-  var _require12 = require(6),
-      G = _require12.G,
-      ELEMENT_NODE = _require12.ELEMENT_NODE,
-      OWNER_SVG_ELEMENT = _require12.OWNER_SVG_ELEMENT,
-      SVG_NAMESPACE = _require12.SVG_NAMESPACE,
-      UID = _require12.UID,
-      UIDC = _require12.UIDC;
+  var _require13 = require(7),
+      G = _require13.G,
+      ELEMENT_NODE = _require13.ELEMENT_NODE,
+      OWNER_SVG_ELEMENT = _require13.OWNER_SVG_ELEMENT,
+      SVG_NAMESPACE = _require13.SVG_NAMESPACE,
+      UID = _require13.UID,
+      UIDC = _require13.UIDC;
 
-  var _require13 = require(12),
-      hasAppend = _require13.hasAppend,
-      hasContent = _require13.hasContent,
-      hasDoomedCloneNode = _require13.hasDoomedCloneNode,
-      hasImportNode = _require13.hasImportNode;
+  var _require14 = require(13),
+      hasAppend = _require14.hasAppend,
+      hasContent = _require14.hasContent,
+      hasDoomedCloneNode = _require14.hasDoomedCloneNode,
+      hasImportNode = _require14.hasImportNode;
 
-  var _require14 = require(9),
-      create = _require14.create,
-      doc = _require14.doc,
-      fragment = _require14.fragment;
+  var _require15 = require(10),
+      create = _require15.create,
+      doc = _require15.doc,
+      fragment = _require15.fragment;
 
-  var _require15 = require(5),
-      Map = _require15.Map,
-      WeakMap = _require15.WeakMap; // appends an array of nodes
+  var _require16 = require(6),
+      Map = _require16.Map,
+      WeakMap = _require16.WeakMap; // appends an array of nodes
   // to a generic node/fragment
   // When available, uses append passing all arguments at once
   // hoping that's somehow faster, even if append has more checks on type
@@ -1033,10 +1047,10 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   // ../../node_modules/hyperhtml/cjs/shared/features-detection.js
   'use strict';
 
-  var _require16 = require(9),
-      create = _require16.create,
-      fragment = _require16.fragment,
-      text = _require16.text;
+  var _require17 = require(10),
+      create = _require17.create,
+      fragment = _require17.fragment,
+      text = _require17.text;
 
   var testFragment = fragment(document); // DOM4 node.append(...many)
 
@@ -1060,12 +1074,12 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   // ../../node_modules/hyperhtml/cjs/classes/Wire.js
   'use strict';
 
-  var _require17 = require(10),
-      append = _require17.append;
+  var _require18 = require(11),
+      append = _require18.append;
 
-  var _require18 = require(9),
-      doc = _require18.doc,
-      fragment = _require18.fragment;
+  var _require19 = require(10),
+      doc = _require19.doc,
+      fragment = _require19.fragment;
 
   function Wire(childNodes) {
     this.childNodes = childNodes;
@@ -1104,27 +1118,27 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   // ../../node_modules/hyperhtml/cjs/hyper/render.js
   'use strict';
 
-  var _require19 = require(5),
-      Map = _require19.Map,
-      WeakMap = _require19.WeakMap;
-
   var _require20 = require(6),
-      G = _require20.G,
-      UIDC = _require20.UIDC,
-      VOID_ELEMENTS = _require20.VOID_ELEMENTS;
+      Map = _require20.Map,
+      WeakMap = _require20.WeakMap;
+
+  var _require21 = require(7),
+      G = _require21.G,
+      UIDC = _require21.UIDC,
+      VOID_ELEMENTS = _require21.VOID_ELEMENTS;
 
   var Updates = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(15));
-
-  var _require21 = require(10),
-      createFragment = _require21.createFragment,
-      importNode = _require21.importNode,
-      unique = _require21.unique,
-      TemplateMap = _require21.TemplateMap;
+  }(require(16));
 
   var _require22 = require(11),
-      selfClosing = _require22.selfClosing; // a weak collection of contexts that
+      createFragment = _require22.createFragment,
+      importNode = _require22.importNode,
+      unique = _require22.unique,
+      TemplateMap = _require22.TemplateMap;
+
+  var _require23 = require(12),
+      selfClosing = _require23.selfClosing; // a weak collection of contexts that
   // are already known to hyperHTML
 
 
@@ -1206,57 +1220,57 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   // ../../node_modules/hyperhtml/cjs/objects/Updates.js
   'use strict';
 
-  var _require23 = require(6),
-      CONNECTED = _require23.CONNECTED,
-      DISCONNECTED = _require23.DISCONNECTED,
-      COMMENT_NODE = _require23.COMMENT_NODE,
-      DOCUMENT_FRAGMENT_NODE = _require23.DOCUMENT_FRAGMENT_NODE,
-      ELEMENT_NODE = _require23.ELEMENT_NODE,
-      TEXT_NODE = _require23.TEXT_NODE,
-      OWNER_SVG_ELEMENT = _require23.OWNER_SVG_ELEMENT,
-      SHOULD_USE_TEXT_CONTENT = _require23.SHOULD_USE_TEXT_CONTENT,
-      UID = _require23.UID,
-      UIDC = _require23.UIDC;
+  var _require24 = require(7),
+      CONNECTED = _require24.CONNECTED,
+      DISCONNECTED = _require24.DISCONNECTED,
+      COMMENT_NODE = _require24.COMMENT_NODE,
+      DOCUMENT_FRAGMENT_NODE = _require24.DOCUMENT_FRAGMENT_NODE,
+      ELEMENT_NODE = _require24.ELEMENT_NODE,
+      TEXT_NODE = _require24.TEXT_NODE,
+      OWNER_SVG_ELEMENT = _require24.OWNER_SVG_ELEMENT,
+      SHOULD_USE_TEXT_CONTENT = _require24.SHOULD_USE_TEXT_CONTENT,
+      UID = _require24.UID,
+      UIDC = _require24.UIDC;
 
   var Component = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(4));
+  }(require(5));
 
   var Wire = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(13));
+  }(require(14));
 
   var Path = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(16));
+  }(require(17));
 
   var Style = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(17));
+  }(require(18));
 
   var Intent = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(7));
+  }(require(8));
 
   var domdiff = function (m) {
     return m.__esModule ? m.default : m;
-  }(require(18)); // see /^script$/i.test(nodeName) bit down here
+  }(require(19)); // see /^script$/i.test(nodeName) bit down here
   // import { create as createElement, text } from '../shared/easy-dom.js';
 
 
-  var _require24 = require(9),
-      text = _require24.text;
+  var _require25 = require(10),
+      text = _require25.text;
 
-  var _require25 = require(5),
-      Event = _require25.Event,
-      WeakSet = _require25.WeakSet,
-      isArray = _require25.isArray,
-      trim = _require25.trim;
+  var _require26 = require(6),
+      Event = _require26.Event,
+      WeakSet = _require26.WeakSet,
+      isArray = _require26.isArray,
+      trim = _require26.trim;
 
-  var _require26 = require(10),
-      createFragment = _require26.createFragment,
-      getChildren = _require26.getChildren,
-      slice = _require26.slice; // hyper.Component have a connected/disconnected
+  var _require27 = require(11),
+      createFragment = _require27.createFragment,
+      getChildren = _require27.getChildren,
+      slice = _require27.slice; // hyper.Component have a connected/disconnected
   // mechanism provided by MutationObserver
   // This weak set is used to recognize components
   // as DOM node that needs to trigger connected/disconnected events
@@ -1775,10 +1789,10 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   // ../../node_modules/hyperhtml/cjs/objects/Path.js
   'use strict';
 
-  var _require27 = require(6),
-      COMMENT_NODE = _require27.COMMENT_NODE,
-      DOCUMENT_FRAGMENT_NODE = _require27.DOCUMENT_FRAGMENT_NODE,
-      ELEMENT_NODE = _require27.ELEMENT_NODE; // every template literal interpolation indicates
+  var _require28 = require(7),
+      COMMENT_NODE = _require28.COMMENT_NODE,
+      DOCUMENT_FRAGMENT_NODE = _require28.DOCUMENT_FRAGMENT_NODE,
+      ELEMENT_NODE = _require28.ELEMENT_NODE; // every template literal interpolation indicates
   // a precise target in the DOM the template is representing.
   // `<p id=${'attribute'}>some ${'content'}</p>`
   // hyperHTML finds only once per template literal,
@@ -2076,20 +2090,24 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
   var API = 'https://api.github.com';
   var APP = 'offline-report';
+  var CONNECTION_ERROR = 'connection error';
   var DATABASE = 'vacations.json';
   var REPOSITORY = APP + '-vacations';
   var SEARCH_PLACEHOLDER = 'GitHub user name';
   module.exports = {
     API: API,
     APP: APP,
+    CONNECTION_ERROR: CONNECTION_ERROR,
     DATABASE: DATABASE,
     REPOSITORY: REPOSITORY,
     SEARCH_PLACEHOLDER: SEARCH_PLACEHOLDER
   };
 }, function (global, require, module, exports) {
-  // ../../view/input.js
-  module.exports = function (render, info) {
-    return render(_templateObject2(), info.autofocus, info.value, info.placeholder, info.onkeydown, info.onkeyup);
+  // utils.js
+  module.exports = {
+    $: function $(css) {
+      return document.querySelector(css);
+    }
   };
 }, function (global, require, module, exports) {
   // ../../shared/status.js
@@ -2106,6 +2124,11 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
     }
   };
 }, function (global, require, module, exports) {
+  // ../../view/input.js
+  module.exports = function (render, info) {
+    return render(_templateObject2(), info.autofocus, info.value, info.placeholder, info.onkeydown, info.onkeyup);
+  };
+}, function (global, require, module, exports) {
   // load.js
   var html = document.documentElement;
 
@@ -2114,19 +2137,24 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
     img.onload = function () {
       html.setAttribute('opacity', 1);
-
-      if ('serviceWorker' in navigator) {
-        addEventListener('beforeinstallprompt', function (event) {
-          event.preventDefault();
-          window.installPrompt = event;
-        });
-        navigator.serviceWorker.register('/sw.js').then(function () {
-          return fetch(img.src);
-        });
-      }
+      if ('serviceWorker' in navigator) navigator.serviceWorker.ready.then(function () {
+        return fetch(img.src);
+      });
     };
 
     img.src = getComputedStyle(html, ':before').getPropertyValue('background-image').replace(/^url\((['"]?)(\S+?)\1\)$/, '$2');
+  };
+}, function (global, require, module, exports) {
+  // online.js
+  var _require29 = require(21),
+      $ = _require29.$;
+
+  var _require30 = require(20),
+      CONNECTION_ERROR = _require30.CONNECTION_ERROR;
+
+  module.exports = function () {
+    var output = $('output');
+    if (output.textContent === CONNECTION_ERROR) $('form').dispatchEvent(new CustomEvent('submit'));
   };
 }]);
 
