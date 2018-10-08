@@ -9,7 +9,7 @@ a.unsplash, a.unsplash:visited {
   display: inline-block;
   border-radius: 3px;
   position: absolute;
-  right: 8px;
+  left: 8px;
   bottom: 8px;
 }
 
@@ -25,44 +25,4 @@ a.unsplash > span > svg {
   vertical-align: middle;
   top: -1px;
   fill: white;
-}
-
-html.gaspanik:before {
-  background-image: url(../img/gaspanik.jpg);
-}
-
-html.a2foto:before {
-  background-image: url(../img/a2foto.jpg);
-}
-
-html.davidmoum:before {
-  background-image: url(../img/davidmoum.jpg);
-}
-
-html.edgr:before {
-  background-image: url(../img/edgr.jpg);
-}
-
-html.michaelbenz:before {
-  background-image: url(../img/michaelbenz.jpg);
-}
-
-html.boontohhgraphy:before {
-  background-image: url(../img/boontohhgraphy.jpg);
-}
-
-html.frankiefoto:before {
-  background-image: url(../img/frankiefoto.jpg);
-}
-
-html.darrylbrian:before {
-  background-image: url(../img/darrylbrian.jpg);
-}
-
-html.kalenemsley:before {
-  background-image: url(../img/kalenemsley.jpg);
-}
-
-html.hikersbay:before {
-  background-image: url(../img/hikersbay.jpg);
 }
