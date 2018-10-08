@@ -2111,6 +2111,8 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   };
 }, function (global, require, module, exports) {
   // ../../shared/status.js
+  "use strict";
+
   module.exports = function (status) {
     switch (status) {
       case 'online':

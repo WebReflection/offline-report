@@ -5,9 +5,10 @@
   "description": "https://offline.report",
   "main": "index.js",
   "scripts": {
-    "bundle": "npm run bundle:css && npm run bundle:js && npm run bundle:sw",
+    "bundle": "npm run bundle:css && npm run bundle:js && npm run bundle:img && npm run bundle:sw",
     "bundle:css": "csso client/css/index.css static/css/min.css && csso client/css/unsplash.css static/css/unsplash.css",
     "bundle:js": "asbundle client/js/index.js --ignore=viperhtml | babel --no-babelrc --presets=@babel/env > static/js/index.js && npm run min",
+    "bundle:img": "for f in $(ls static/img/*.jpg); do /usr/local/opt/mozjpeg/bin/cjpeg \"$f\" > tmp.jpg && mv tmp.jpg \"$f\" && ls -lh \"$f\"; done",
     "bundle:sw": "echo '(function (self, CACHE_NAME) {' > tmp.js && cat client/js/sw.js >> tmp.js && echo \"}(self, '$(node -e 'var p=require(\"./package.json\");console.log(p.name+\"-\"+p.version)')'));\" >> tmp.js && uglifyjs --comments=/^!/ tmp.js -c -m -o static/sw.js && rm tmp.js",
     "copy:shared": "cp ../shared/*.js ./shared",
     "deploy": "now -e NODE_ENV=production -e GH_CLIENT_ID=@gh-client-id -e GH_CLIENT_SECRET=@gh-client-secret -e HOOK_PRIVATE_KEY=@hook-private-key -e DEP_BOT_APP_ID=@hook-app-id -e DEP_BOT_WEBHOOK_SECRET=@hook-secret-token",
