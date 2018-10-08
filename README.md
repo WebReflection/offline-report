@@ -63,5 +63,6 @@ offline-report cancel from 22/12 to 24/12
 #### Still missing
 
  * [x] binary offline status through the website `offline.report/status/USER(.svg,.txt)`
+ * [ ] auto-responder bot while on vacation
  * [ ] vacations through the website `offline.report/about/USER`
  * [ ] vacations admin through the website (stretch goal)
