@@ -3,14 +3,18 @@ const SITE = location.protocol + '//' + location.host;
 const openedCache = caches.open(CACHE_NAME);
 
 addEventListener('install', e => {
+  const {search} = location;
+  const page = decodeURIComponent(search.slice(1));
   e.waitUntil(
     openedCache.then(cache => cache.addAll([
       '/',
       '/css/min.css',
       '/css/unsplash.css',
       '/js/min.js',
-      decodeURIComponent(location.search.slice(1))
-    ]))
+      '/sw.js' + search
+    ].concat(
+      page === '/' ? [] : [page]
+    )))
   );
 });
 
@@ -31,7 +35,7 @@ self.addEventListener('fetch', event => {
             },
             error => {
               if (navigator.onLine)
-              console.error(url, error);
+                console.error(url, error);
             }
           )
         )

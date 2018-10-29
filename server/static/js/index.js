@@ -2134,6 +2134,9 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   // load.js
   var html = document.documentElement;
 
+  var _require29 = require(21),
+      $ = _require29.$;
+
   module.exports = function () {
     var img = new Image();
 
@@ -2141,6 +2144,10 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
       html.setAttribute('opacity', 1);
       if ('serviceWorker' in navigator) navigator.serviceWorker.ready.then(function () {
         return fetch(img.src);
+      }).then(function (r) {
+        return r.blob();
+      }).then(function () {
+        if ($('input').value.replace(/\s+/, '').length) $('form').dispatchEvent(new CustomEvent('submit'));
       });
     };
 
@@ -2148,11 +2155,11 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
   };
 }, function (global, require, module, exports) {
   // online.js
-  var _require29 = require(21),
-      $ = _require29.$;
+  var _require30 = require(21),
+      $ = _require30.$;
 
-  var _require30 = require(20),
-      CONNECTION_ERROR = _require30.CONNECTION_ERROR;
+  var _require31 = require(20),
+      CONNECTION_ERROR = _require31.CONNECTION_ERROR;
 
   module.exports = function () {
     var output = $('output');
