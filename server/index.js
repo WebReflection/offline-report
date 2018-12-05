@@ -147,7 +147,15 @@ function getStatus(user) {
                               'offline' :
                               'online';
         }
-        broadcast.that(user, details);
+        Promise.all([
+          faroff.get(`https://img.shields.io/badge/${user}-online-green.svg`),
+          faroff.get(`https://img.shields.io/badge/${user}-offline-red.svg`)
+        ]).then(results => {
+          const [online, offline] = results;
+          details.online = online.status == 200 ? online.body : '';
+          details.offline = offline.status == 200 ? offline.body : '';
+          broadcast.that(user, details);
+        });
       })
       .catch(() => {
         loading.delete(user);

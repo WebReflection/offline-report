@@ -8,7 +8,7 @@ const getBGColor = status => status === 'unknown' ?
 module.exports = (render, info) => {
   const status = getStatus(info.status);
   const bgcolor = getBGColor(status);
-  return render`<svg xmlns="http://www.w3.org/2000/svg" width="90" height="20">
+  return info[status] || render`<svg xmlns="http://www.w3.org/2000/svg" width="90" height="20">
   <linearGradient id="a" x2="0" y2="100%">
     <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
     <stop offset="1" stop-opacity=".1"/>
