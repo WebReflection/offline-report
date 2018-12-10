@@ -15,7 +15,7 @@ module.exports = (render, details) => render`<!DOCTYPE html>
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <link rel="stylesheet" href="css/min.css">
     <link rel="stylesheet" href="css/unsplash.css">
-    <script defer src="js/min.js"></script>
+    <script defer src="js/index.js"></script>
   </head>
   <body>
     <main>

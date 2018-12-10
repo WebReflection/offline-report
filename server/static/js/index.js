@@ -2142,7 +2142,10 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
     img.onload = function () {
       html.setAttribute('opacity', 1);
-      if ('serviceWorker' in navigator) navigator.serviceWorker.ready.then(function () {
+      if ('serviceWorker' in navigator && // something is wrong with submit even tin firefox
+      // it keeps reloading every single time.
+      // TODO: fix Firefox whenever you have time
+      !/Firefox/.test(navigator.userAgent)) navigator.serviceWorker.ready.then(function () {
         return fetch(img.src);
       }).then(function (r) {
         return r.blob();
