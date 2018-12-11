@@ -95,7 +95,7 @@ function get2FA(user) {
           read(
             {prompt: '2FA authentication code: '},
             (error, code) => {
-              process.stdin.write('\x1B[1A');
+              process.stdout.write('\x1B[1A');
               if (error || !(code || '').trim().length)
                 reject('unauthorized request');
               else {
@@ -222,7 +222,7 @@ function getName(user) {
     read(
       {prompt: 'GitHub \x1B[1muser\x1B[0m/email: '},
       (error, name) => {
-        process.stdin.write('\x1B[1A');
+        process.stdout.write('\x1B[1A');
         if (error || !(name || '').trim().length)
           reject('invalid user ' + name);
         else {
@@ -244,7 +244,7 @@ function getPassword(user) {
         replace: '•'
       },
       (error, password) => {
-        process.stdin.write('\x1B[1A\x1B[1A');
+        process.stdout.write('\x1B[1A\x1B[1A');
         if (error || !password.length)
           reject('invalid password');
         else {
