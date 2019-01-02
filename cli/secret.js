@@ -2,33 +2,33 @@
 
 const crypto = require('crypto');
 
-const ciphers = crypto
-                  .getCiphers()
-                  .filter(algorithm => /^aes\d+$/i.test(algorithm))
-                  .sort();
+const algorithm = 'aes-256-cbc';
 
-const cipher = ciphers.indexOf('aes256') < 0 ? ciphers.pop() : 'aes256';
+const salt = process.env.ENCRYPTION_SALT || algorithm;
 
 const wm = new WeakMap;
 
 module.exports = class Secret {
 
-  constructor(secret, algorithm = cipher) {
-    wm.set(this, {algorithm, secret});
+  constructor(secret) {
+    wm.set(this, {key: crypto.scryptSync(secret, salt, 32)});
   }
 
   decrypt(text) {
-    const {algorithm, secret} = wm.get(this);
-    const decipher = crypto.createDecipher(algorithm, secret);
-    return (decipher.update(String(text), 'hex', 'utf8') +
-            decipher.final('utf8'));
+    const {key} = wm.get(this);
+    const parts = text.split(':');
+    const iv = Buffer.from(parts.shift(), 'hex');
+    const encrypted = Buffer.from(parts.join(':'), 'hex');
+    const decipher = crypto.createDecipheriv(algorithm, key, iv);
+    return '' + Buffer.concat([decipher.update(encrypted), decipher.final()]);
   }
 
   encrypt(text) {
-    const {algorithm, secret} = wm.get(this);
-    const cipher = crypto.createCipher(algorithm, secret);
-    return (cipher.update(String(text), 'utf8', 'hex') +
-            cipher.final('hex'));
+    const {key} = wm.get(this);
+    const iv = crypto.randomBytes(16);
+    const cipher = crypto.createCipheriv(algorithm, key, iv);
+    const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
+    return iv.toString('hex') + ':' + encrypted.toString('hex');
   }
 
 };

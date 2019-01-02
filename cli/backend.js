@@ -409,7 +409,7 @@ function spin(text, callback) {
 
 function storeToken(user, token, resolve, reject) {
   storage
-    .setItem('token', new Secret(passwords.get(user)).encrypt(token))
+    .setItem('token-vi', new Secret(passwords.get(user)).encrypt(token))
     .then(
       token => {
         user.token = token;
@@ -426,7 +426,7 @@ function user(program) {
   return new Promise((resolve, reject) => {
     Promise.all([
       storage.getItem('name'),
-      storage.getItem('token'),
+      storage.getItem('token-vi'),
       storage.getItem('vacations'),
       holidays ?
         storage.setItem(
@@ -485,7 +485,7 @@ function validateToken(user) {
           delete user.token;
           Promise.all([
             storage.removeItem('name'),
-            storage.removeItem('token')
+            storage.removeItem('token-vi')
           ])
           .then(() => getToken(user).then(resolve).catch(reject))
           .catch(reject);
