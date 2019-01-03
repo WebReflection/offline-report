@@ -3,8 +3,8 @@
 const {API, APP, DATABASE, REPOSITORY} = require('./shared/constants.js');
 const RangeArray = require('./shared/range-array.js');
 const {parseVacations} = require('./shared/utils.js');
-const Secret = require('./secret.js');
 
+const Secret = require('secretly');
 const faroff = require('faroff');
 const ora = require('ora');
 const read = require('read');
@@ -409,7 +409,7 @@ function spin(text, callback) {
 
 function storeToken(user, token, resolve, reject) {
   storage
-    .setItem('token-vi', new Secret(passwords.get(user)).encrypt(token))
+    .setItem('secret', new Secret(passwords.get(user)).encrypt(token))
     .then(
       token => {
         user.token = token;
@@ -426,7 +426,7 @@ function user(program) {
   return new Promise((resolve, reject) => {
     Promise.all([
       storage.getItem('name'),
-      storage.getItem('token-vi'),
+      storage.getItem('secret'),
       storage.getItem('vacations'),
       holidays ?
         storage.setItem(
@@ -485,7 +485,7 @@ function validateToken(user) {
           delete user.token;
           Promise.all([
             storage.removeItem('name'),
-            storage.removeItem('token-vi')
+            storage.removeItem('secret')
           ])
           .then(() => getToken(user).then(resolve).catch(reject))
           .catch(reject);
