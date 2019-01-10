@@ -29,6 +29,7 @@ const headers = {
 module.exports = {
   getVacations,
   setVacations,
+  updateStatus,
   user
 };
 
@@ -458,8 +459,26 @@ function setVacations(user) {
           .then(createTree)
           .then(createCommit)
           .then(patchCommit)
-          .then(() => storage.setItem('vacations', user.vacations))
+          .then(user => storage.setItem('vacations', user.vacations).then(() => user))
           .then(notifySite);
+}
+
+function updateStatus(user, offline, exit) {
+  return getToken(user)
+          .then(user => faroff.post({
+            headers: headers.token(user),
+            url: `${API}/users/${user.name}/status`,
+            json: {
+              emoji: offline ? ':palm_tree:' : ':robot:',
+              message: offline ? 'On vacation' : 'Online'
+            }
+          }, exit)
+          .then(result => {
+            if (400 <= result.status)
+              exit('unable to update the status');
+            return user;
+          }, exit)
+          .catch(exit));
 }
 
 function validateToken(user) {

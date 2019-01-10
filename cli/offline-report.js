@@ -29,7 +29,12 @@ const options = {
   year: true
 };
 
-if (program.about) {
+if (program.updateStatus) {
+  be.user(program)
+    .then(be.getVacations)
+    .then(updateStatus)
+    .catch(exit);
+} else if (program.about) {
   const spinner = ora({
     text: `grabbing ${program.about} vacations`,
     spinner: process.platform === 'darwin' ? 'dots' : 'triangle'
@@ -199,6 +204,14 @@ function showVacations(user) {
   exit(
     userHeader(user.name, output[0][1].replace(/\x1B\[\dm/g, '').length + 1) +
     output.map(newLine).join('\n')
+  );
+}
+
+function updateStatus(user) {
+  be.updateStatus(
+    user,
+    user.vacations.contains(new Range(today, today)),
+    exit
   );
 }
 

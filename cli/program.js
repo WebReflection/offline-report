@@ -11,6 +11,7 @@ const program = {
   from: null,
   holidays: '',
   pull: false,
+  updateStatus: false,
   to: null
 };
 
@@ -99,6 +100,9 @@ for (let i = 2, length = process.argv.length; i < length;) {
         i = checkKey(i, length, program, arg);
         implicit[arg] = parse.reason === 'implicit';
         break;
+      case 'update-status':
+        program.updateStatus = true;
+        break;
       default:
         exit(1);
     }
@@ -173,6 +177,7 @@ function help() {
     '    offline-report add from 12 to 16',
     '    offline-report about user',
     '    offline-report about user from 2 to 9',
+    '    offline-report update-status',
     '    offline-report --holidays=it,gb,us',
     '',
     '  Aliases:',
