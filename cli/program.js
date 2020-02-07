@@ -209,5 +209,6 @@ function help() {
 
 function version() {
   const pkg = require('./package.json');
-  return `\x1B[1m${pkg.name}\x1B[0m v${pkg.version}, by ${pkg.author}`;
+  const name = typeof pkg.author === 'string' ? pkg.author : pkg.author.name;
+  return `\x1B[1m${pkg.name}\x1B[0m v${pkg.version}, by ${name}`;
 }

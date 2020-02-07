@@ -1,6 +1,6 @@
 {
   "name": "offline-report",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "description": "Your availability through your command line.",
   "bin": "offline-report.js",
   "dependencies": {
@@ -17,7 +17,7 @@
     "url": "git+https://github.com/WebReflection/offline-report.git"
   },
   "scripts": {
-    "copy:shared": "cp ../shared/*.js ./shared"
+    "copy:shared": "mkdir -p ./shared && cp ../shared/*.js ./shared"
   },
   "keywords": [
     "vacations",
