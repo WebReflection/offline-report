@@ -5,12 +5,12 @@
   "bin": "offline-report.js",
   "dependencies": {
     "faroff": "0.0.4",
-    "monthly": "^0.6.6",
-    "ora": "^3.0.0",
-    "perseverant": "^3.0.0",
+    "monthly": "^0.6.7",
+    "ora": "^4.0.4",
+    "perseverant": "^4.0.0",
     "read": "^1.0.7",
-    "secretly": "^0.2.0",
-    "uuid": "^3.3.2"
+    "secretly": "^1.0.0",
+    "uuid": "^8.0.0"
   },
   "repository": {
     "type": "git",
