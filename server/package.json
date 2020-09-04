@@ -19,9 +19,6 @@
   "author": "Andrea Giammarchi",
   "license": "AGPLv3",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "broadcast": "^3.0.0",
-    "express": "^4.16.3",
     "faroff": "0.0.4",
     "hypermorphic": "^0.8.0",
     "mime": "^2.3.1"

@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/status/(.*?).(svg|txt)", "destination": "/api/status?user=$1&ext=$2" },
+    { "source": "/", "destination": "/api/index" }
+  ]
+}
