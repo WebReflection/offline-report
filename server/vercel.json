@@ -1,6 +1,12 @@
 {
+  "headers": [
+    { "source": "/status/(.*?)\\.(svg|txt)", "headers": [
+      { "key": "Cache-Control", "value": "no-cache" },
+      { "key": "Access-Control-Allow-Origin", "value": "*" }
+    ] }
+  ],
   "rewrites": [
-    { "source": "/status/(.*?).(svg|txt)", "destination": "/api/status?user=$1&ext=$2" },
+    { "source": "/status/(.*?)\\.(svg|txt)", "destination": "/api/status?user=$1&ext=$2" },
     { "source": "/", "destination": "/api/index" }
   ]
 }

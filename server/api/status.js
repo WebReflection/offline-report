@@ -5,14 +5,10 @@ const getStatus = require('../shared/get-status.js');
 
 const types = {
   'svg': {
-    'Content-Type': mime.getType('svg'),
-    'Cache-Control': 'no-cache',
-    'Access-Control-Allow-Origin': '*'
+    'Content-Type': mime.getType('svg')
   },
   'txt': {
-    'Content-Type': mime.getType('txt'),
-    'Cache-Control': 'no-cache',
-    'Access-Control-Allow-Origin': '*'
+    'Content-Type': mime.getType('txt')
   },
 };
 
