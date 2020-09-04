@@ -29,7 +29,7 @@ const wire = {
 module.exports = async (req, res) => {
   const {user, ext} = req.query;
   if (types.hasOwnProperty(ext)) {
-    const info = await getStatus(user.toLowerCase(), true);
+    const info = await getStatus(user.toLowerCase(), ext === 'svg');
     res.writeHead(200, types[ext]);
     res.end(render(ext, info));
   }
