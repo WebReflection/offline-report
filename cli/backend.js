@@ -348,14 +348,6 @@ function is2FA(result) {
           /\brequired\b/.test(result.headers['x-github-otp']);
 }
 
-function notifySite(user) {
-  return spin('clearing offline.report cached result', (resolve, reject) => {
-    faroff.delete(`https://offline.report/cached/${user.name}`)
-      .then(() => resolve(user))
-      .catch(reject);
-  });
-}
-
 function patchCommit(user) {
   return spin('patching the submitted commit', (resolve, reject) => {
     faroff.patch({
@@ -459,8 +451,7 @@ function setVacations(user) {
           .then(createTree)
           .then(createCommit)
           .then(patchCommit)
-          .then(user => storage.setItem('vacations', user.vacations).then(() => user))
-          .then(notifySite);
+          .then(user => storage.setItem('vacations', user.vacations).then(() => user));
 }
 
 function updateStatus(user, offline, exit) {
