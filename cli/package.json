@@ -1,6 +1,6 @@
 {
   "name": "offline-report",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Your availability through your command line.",
   "bin": "offline-report.js",
   "dependencies": {
